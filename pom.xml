@@ -20,6 +20,7 @@
   	<module>../ajcommons-swing-ext</module>
   	<module>../ajcommons-updater</module>
   	<module>../ajcommons-swingx-ext</module>
+  	<module>../ajcommons-ext</module>
   </modules>
   
   <dependencies>
