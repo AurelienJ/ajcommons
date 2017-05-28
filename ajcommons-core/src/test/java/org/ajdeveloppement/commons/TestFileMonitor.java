@@ -116,7 +116,7 @@ public class TestFileMonitor {
 			FileUtils.dumpStreamToFile(in, testFile);
 			System.out.println("file modified");
 			
-			Thread.sleep(100);
+			Thread.sleep(500);
 			if(testFail)
 				fail("File modified not detected");
 		} catch (InterruptedException | IOException e) {
