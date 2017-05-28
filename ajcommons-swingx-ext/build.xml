@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:ivy="antlib:org.apache.ivy.ant" name="ajcommons-swingx-ext" default="pack">
+	<description>Librairie de class standard AJ Extension swingx</description>
+	
+	<property file="security.properties" />
+	
+	<ivy:cachepath pathid="main.classpath" conf="default" type="jar,bundle"/>
+	
+	<target name="resolve" description="--> retrieve dependencies with ivy">
+	        <ivy:retrieve />
+	    </target>
+	
+	<target name="javadoc" description="Construction de la documentation java">
+        <javadoc access="package" additionalparam=" -encoding utf8 -docencoding utf8 -charset utf8"
+	        	destdir="doc"
+	        	source="1.7"
+	        	sourcepath="src">
+        	<classpath refid="main.classpath"/>
+            <link href="http://java.sun.com/javase/6/docs/api/"/>
+        </javadoc>
+    </target>
+
+	<target name="compil" depends="resolve" description="Compilation de la librairie">
+		<mkdir dir="bin" />
+		<javac srcdir="src" destdir="bin"
+			optimize="on"
+			debug="true"
+			encoding="UTF-8"
+			target="1.8">
+			 <classpath refid="main.classpath"/>
+		</javac>
+		<copy todir="bin">
+			<fileset dir="src" >
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+	</target>
+	
+	<target name="pack" depends="compil" description="packages optimisé">
+		<jar jarfile="target/${ivy.module}-${ivy.revision}.jar" basedir="bin" />
+		
+	</target>
+	
+	<target name="publish" depends="resolve">
+		<ivy:publish resolver="local" overwrite="true"> 
+			<ivy:artifacts pattern="target/[artifact]-[revision](-[classifier]).[ext]" /> 
+		</ivy:publish> 
+	</target>
+		
+	<target name="publish-public" depends="resolve">
+		<ivy:publish resolver="ajdev" overwrite="true"> 
+			<ivy:artifacts pattern="target/[artifact]-[revision](-[classifier]).[ext]" /> 
+		</ivy:publish> 
+	</target>
+	
+	<target name="signed-pack" depends="pack" description="packages signé">
+		<signjar
+				keystore="${projet.keystorepath}"
+				storetype="JCEKS"
+				storepass="${projet.keystorepassword}"
+				alias="${projet.signkeyalias}"
+				keypass="${projet.signkeyaliaspassword}"
+				preservelastmodified="true">
+			<path>
+				<fileset dir="." includes="ajcommons*.jar" />
+			</path>
+		</signjar>
+	</target>
+</project>
