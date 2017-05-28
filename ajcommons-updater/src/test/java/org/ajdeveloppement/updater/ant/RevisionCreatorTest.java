@@ -68,6 +68,7 @@ package org.ajdeveloppement.updater.ant;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -94,14 +95,14 @@ public class RevisionCreatorTest {
 	 * @throws IOException 
 	 */
 	@Test
-	public void testExecute() throws IOException {
+	public void testExecute() throws IOException, URISyntaxException {
 		String tempPath = Files.createTempDirectory("ajcommonsUnitTest").toString();
 		String revisionPath = tempPath + File.separator + "revision.xml.gz";
 		
 		AjResourcesReader resourcesReader = new AjResourcesReader("org.ajdeveloppement.updater.ant.security");
 		
-		String keyStorePath = this.getClass().getResource(resourcesReader.getResourceString("keystorepath")).getPath();
-		
+		String keyStorePath = new File(this.getClass().getResource(resourcesReader.getResourceString("keystorepath")).toURI()).getPath();
+			
 		RevisionsCreator revisionsCreator = new RevisionsCreator();
 		revisionsCreator.setRevisionpath(revisionPath);
 		revisionsCreator.setKeyStorePath(keyStorePath);
