@@ -40,7 +40,7 @@
   <dependencies>
   	<dependency>
   		<groupId>org.ajdeveloppement</groupId>
-  		<artifactId>ajcommons</artifactId>
+  		<artifactId>ajcommons-core</artifactId>
   		<version>${global.version}</version>
   	</dependency>
   </dependencies>
