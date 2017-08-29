@@ -282,6 +282,8 @@ public class DefaultSqlBuilder<T, K> implements ResultSetRowToObjectBinder<T, K>
 		if(foreignKeys == null || foreignKeys.size() == 0)
 			return;
 		
+		Class<?> persistentType = ReflectionTools.getFirstPersistentClass(newInstance.getClass());
+		
 		String tableName = ReflectionTools.getTableName(persistentType);
 		
 		Class<?> currentPersistenceCouch = persistentType;
