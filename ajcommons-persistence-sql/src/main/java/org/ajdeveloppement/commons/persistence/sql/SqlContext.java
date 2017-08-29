@@ -228,24 +228,26 @@ public class SqlContext {
 	private ThreadLocal<FinalizableWrapper<Connection>> createConnectionForDomain(String domain) throws SQLException {
 		ThreadLocal<FinalizableWrapper<Connection>> connection = null;
 		if(contextDomains.containsKey(domain)) {
-			connection = new ThreadLocal<FinalizableWrapper<Connection>>() {
-				@Override
-				protected FinalizableWrapper<Connection> initialValue() {
-					try {
-						return new FinalizableWrapper<Connection>(contextDomains.get(domain).createConnection(), cnx -> {
-							try {
-								cnx.close();
-							} catch (SQLException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-						});
-					} catch (SQLException | NamingException e) {
-						throw new UncheckedException(e);
+			synchronized (domainsConnection) {
+				connection = new ThreadLocal<FinalizableWrapper<Connection>>() {
+					@Override
+					protected FinalizableWrapper<Connection> initialValue() {
+						try {
+							return new FinalizableWrapper<Connection>(contextDomains.get(domain).createConnection(), cnx -> {
+								try {
+									cnx.close();
+								} catch (SQLException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							});
+						} catch (SQLException | NamingException e) {
+							throw new UncheckedException(e);
+						}
 					}
-				}
-			};
-			domainsConnection.put(domain, connection);
+				};
+				domainsConnection.put(domain, connection);
+			}
 		}
 		
 		return connection;
