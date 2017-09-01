@@ -156,7 +156,7 @@ public class LazyPersistentCollection<E extends ObjectPersistence, K> implements
 					public E next() {
 						if(persistentIterator.hasNext()) {
 							E item = persistentIterator.next();
-							if(!deletedItems.contains(item)) {
+							if(!deletedItems.contains(item) && !addedItems.contains(item)) {
 								iteratorCurrentIndex++;
 								return item;
 							}
