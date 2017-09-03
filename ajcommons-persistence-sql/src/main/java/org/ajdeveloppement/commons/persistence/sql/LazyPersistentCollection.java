@@ -134,40 +134,46 @@ public class LazyPersistentCollection<E extends ObjectPersistence, K> implements
 	 */
 	public Iterable<E> getUncommitedItems() {
 		return new Iterable<E>() {
-			
-			private int iterableSize = internalQResults.get().count() + addedItems.size() - deletedItems.size();
 			private Iterable<E> persistentIterable = internalQResults.get();
 			private Iterable<E> uncommitedIterable = addedItems;
 
 			@Override
 			public Iterator<E> iterator() {
-				// TODO Auto-generated method stub
 				return new Iterator<E>() {
-					private int iteratorCurrentIndex = 0;
 					private Iterator<E> persistentIterator = persistentIterable.iterator();
 					private Iterator<E> uncommitedIterator = uncommitedIterable.iterator();
+					
+					private E nextElement = null;
+					
+					private synchronized E getNextElement() {
+						if(nextElement == null) {
+							if(persistentIterator.hasNext()) {
+								E item = persistentIterator.next();
+								if(!deletedItems.contains(item) && !addedItems.contains(item)) {
+									nextElement = item;
+								}
+							}
+							
+							if(nextElement == null && uncommitedIterator.hasNext()) {
+								nextElement = uncommitedIterator.next();
+							}
+						}
+						
+						return nextElement;
+					}
 
 					@Override
 					public boolean hasNext() {
-						return iteratorCurrentIndex < iterableSize - 1;
+						return getNextElement() != null;
 					}
 
 					@Override
 					public E next() {
-						if(persistentIterator.hasNext()) {
-							E item = persistentIterator.next();
-							if(!deletedItems.contains(item) && !addedItems.contains(item)) {
-								iteratorCurrentIndex++;
-								return item;
-							}
-						}
+						E nextItem = getNextElement();
 						
-						if(uncommitedIterator.hasNext()) {
-							iteratorCurrentIndex++;
-							return uncommitedIterator.next();
-						}
+						nextElement = null;
 						
-						return null;
+						return nextItem;
 					}
 				};
 			}
@@ -197,6 +203,7 @@ public class LazyPersistentCollection<E extends ObjectPersistence, K> implements
 	public boolean contains(Object o) {
 		if(getElementType().isAssignableFrom(o.getClass())) {
 			try {
+				@SuppressWarnings("unchecked")
 				Map<String, Object> pk = extractPrimaryKey((E)o);
 				
 				QFilter filter= null;
