@@ -91,19 +91,21 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.CellEditorListener;
 import javax.swing.event.ChangeEvent;
 
-import org.ajdeveloppement.commons.Beta;
-
 /**
  * Liste avec gestion unitaires en ajout/suppression
- * des éléments des élements
+ * des éléments
  * 
  * @author Aurélien JEOFFRAY
  * @author Santhosh Kumar T - santhosh@in.fiorano.com 
  * 
  * @param <T> type des éléments de la liste
  */
-@Beta
 public class AJList<T> extends JList<T> implements CellEditorListener {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	protected Component editorComp = null; 
     protected int editingIndex = -1; 
@@ -556,6 +558,11 @@ public class AJList<T> extends JList<T> implements CellEditorListener {
 	/*-------------------------------------------------[ Editing Actions]---------------------------------------------------*/
 
 	private static class StartEditingAction extends AbstractAction {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			AJList<?> list = (AJList<?>) e.getSource();
@@ -578,6 +585,11 @@ public class AJList<T> extends JList<T> implements CellEditorListener {
 	}
 
 	private class CancelEditingAction extends AbstractAction {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			AJList<?> list = (AJList<?>) e.getSource();

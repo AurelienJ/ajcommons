@@ -98,6 +98,11 @@ import javax.swing.text.Document;
  * @param <T> le type des éléments suggeré
  */
 public class AJSuggestTextField<T> extends JTextField implements DocumentListener, HierarchyListener {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private JDialog suggestDialog;
 	private JList<T> jlSuggestion;
 

@@ -92,6 +92,11 @@ import org.ajdeveloppement.commons.AjResourcesReader;
  */
 public class AJTabbedPane extends JTabbedPane {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private static AjResourcesReader labels = new AjResourcesReader("org.ajdeveloppement.commons.ui.labels"); //$NON-NLS-1$
 	
 	private EventListenerList listeners = new EventListenerList();

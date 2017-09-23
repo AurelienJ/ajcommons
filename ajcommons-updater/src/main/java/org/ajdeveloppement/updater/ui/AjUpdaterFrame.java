@@ -117,15 +117,27 @@ import org.ajdeveloppement.updater.Version;
  * @version 1.0
  */
 public class AjUpdaterFrame extends JDialog implements ActionListener, ListSelectionListener {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private JLabel jlSiteUpdate = new JLabel();
 	private final JTable jtRepository = new JTable() {
-		//  Returning the Class of each column will allow different
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			//  Returning the Class of each column will allow different
 			//  renderers to be used based on Class
 			@Override
 	        public Class<?> getColumnClass(int column)	{
 				return getValueAt(0, column).getClass();
 			}
 		};
+		
 	//private AJList siteUpdate = new AJList();
 	private JLabel jlInfoSecurity = new JLabel();
 	private JLabel jlNoteVersion = new JLabel();
