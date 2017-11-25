@@ -1,6 +1,6 @@
-FRENCH:
+# FRENCH:
 
-******** A Propos de AJCommons **************
+## A Propos de AJCommons
 
 La librairie AJCommons (ajcommons.jar) a pour but de fournir un ensemble de class facilitant la vie
 du développeur dans la production des ses programmes par une collection de class et
@@ -25,7 +25,7 @@ Sous Mac OS X, nécessite au minimum la version 10.5.2 64bits.
 La Librairie AJCommons est soumise à la licence CeCILL-C (Voir contrat joint). La licence est de droit
 français et conforme à celui-ci.
 
-******** A Propos de AJCommons-ext **************
+## A Propos de AJCommons-ext
 
 Une seconde librairie, AJCommons-ext (ajcommons-ext.jar) fournit un ensemble de class ne pouvant être
 soumis à la licence CeCILL-C en raison de l'inclusion de code soumis exclusivement à la licence
@@ -37,9 +37,9 @@ Il n'y a aucune dépendance entre les librairies AJCommons et AJCommons-ext.
 AJCommons-ext contient une API permettant d'exploiter les archives zip chiffrées selon la méthode
 PKWARE traditionnel (en lecture uniquement)
 
-ENGLISH:
+# ENGLISH:
 
-********About AJCommons **************
+## About AJCommons
 
 The library AJCommons (ajcommons.jar) aims to provide a set of class lives easier
 developer in the production of programs through a collection of classes and
@@ -63,7 +63,7 @@ Mac OS X, requires at least version 10.5.2 64bit.
 
 Library AJCommons is subject to the CeCILL-C (See attached contract). The Agreement is governed by French law
 
-******** About AJCommmons-ext **************
+## About AJCommmons-ext
 
 A second library, AJCommons-ext (ajcommons-ext.jar) provides a set of class can not be
 subject to the CeCILL-C due to the inclusion of code subject only to the license
