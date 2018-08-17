@@ -1,28 +1,25 @@
 package org.ajdeveloppement.commons;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Locale;
 
-import junit.framework.TestCase;
-
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 /**
  * 
  * @author Aurelien JEOFFRAY
  *
  */
-public class AjResourcesReaderTest extends TestCase {
+public class AjResourcesReaderTest {
 	
 	
-
-	@Override
-	@Before
-	public void setUp() throws Exception {
+	@BeforeAll
+	public static void setUp() throws Exception {
 		Locale.setDefault(Locale.FRENCH);
 	}
 
@@ -35,12 +32,12 @@ public class AjResourcesReaderTest extends TestCase {
 		AjResourcesReader resourceReader = new AjResourcesReader("org.ajdeveloppement.commons.resourcetest"); //$NON-NLS-1$
 		
 		//On est paramétré avec une local fr par défaut
-		Assert.assertEquals("Test ref 1 fr", resourceReader.getResourceString("reference1"));  //$NON-NLS-1$//$NON-NLS-2$
+		assertEquals("Test ref 1 fr", resourceReader.getResourceString("reference1"));  //$NON-NLS-1$//$NON-NLS-2$
 		
 		//Test avec une locale spécifique
 		resourceReader = new AjResourcesReader("org.ajdeveloppement.commons.resourcetest", Locale.ENGLISH); //$NON-NLS-1$
 		
-		Assert.assertEquals("Test ref 1 en", resourceReader.getResourceString("reference1"));  //$NON-NLS-1$//$NON-NLS-2$
+		assertEquals("Test ref 1 en", resourceReader.getResourceString("reference1"));  //$NON-NLS-1$//$NON-NLS-2$
 		
 		//Test avec un classloader spécifique
 		URLClassLoader classLoader;
@@ -49,11 +46,11 @@ public class AjResourcesReaderTest extends TestCase {
 			
 			resourceReader = new AjResourcesReader("resourcetest", classLoader); //$NON-NLS-1$
 			
-			Assert.assertEquals("Test ref 1 fr", resourceReader.getResourceString("reference1"));  //$NON-NLS-1$//$NON-NLS-2$
+			assertEquals("Test ref 1 fr", resourceReader.getResourceString("reference1"));  //$NON-NLS-1$//$NON-NLS-2$
 			
 			resourceReader = new AjResourcesReader("resourcetest", classLoader, Locale.ENGLISH); //$NON-NLS-1$
 			
-			Assert.assertEquals("Test ref 1 en", resourceReader.getResourceString("reference1"));  //$NON-NLS-1$//$NON-NLS-2$
+			assertEquals("Test ref 1 en", resourceReader.getResourceString("reference1"));  //$NON-NLS-1$//$NON-NLS-2$
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
@@ -66,9 +63,9 @@ public class AjResourcesReaderTest extends TestCase {
 	public void testGetResourceStringString() {
 		AjResourcesReader resourceReader = new AjResourcesReader("org.ajdeveloppement.commons.resourcetest"); //$NON-NLS-1$
 		
-		Assert.assertEquals("Test ref 1 fr", resourceReader.getResourceString("reference1"));  //$NON-NLS-1$//$NON-NLS-2$
-		Assert.assertEquals("Test réf 2 custom", resourceReader.getResourceString("reference2"));  //$NON-NLS-1$//$NON-NLS-2$
-		Assert.assertEquals("Ref non localisé", resourceReader.getResourceString("reference3"));  //$NON-NLS-1$//$NON-NLS-2$
+		assertEquals("Test ref 1 fr", resourceReader.getResourceString("reference1"));  //$NON-NLS-1$//$NON-NLS-2$
+		assertEquals("Test réf 2 custom", resourceReader.getResourceString("reference2"));  //$NON-NLS-1$//$NON-NLS-2$
+		assertEquals("Ref non localisé", resourceReader.getResourceString("reference3"));  //$NON-NLS-1$//$NON-NLS-2$
 	}
 
 	/**
@@ -78,7 +75,7 @@ public class AjResourcesReaderTest extends TestCase {
 	public void testGetResourceStringStringObjectArray() {
 		AjResourcesReader resourceReader = new AjResourcesReader("org.ajdeveloppement.commons.resourcetest"); //$NON-NLS-1$
 		
-		Assert.assertEquals("Ref avec la var x", resourceReader.getResourceString("reference4", "x"));  //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$
+		assertEquals("Ref avec la var x", resourceReader.getResourceString("reference4", "x"));  //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$
 	}
 
 	/**
@@ -88,7 +85,7 @@ public class AjResourcesReaderTest extends TestCase {
 	public void testGetResourceInteger() {
 		AjResourcesReader resourceReader = new AjResourcesReader("org.ajdeveloppement.commons.resourcetest"); //$NON-NLS-1$
 		
-		Assert.assertEquals(58, resourceReader.getResourceInteger("reference5")); //$NON-NLS-1$
+		assertEquals(58, resourceReader.getResourceInteger("reference5")); //$NON-NLS-1$
 	}
 
 }

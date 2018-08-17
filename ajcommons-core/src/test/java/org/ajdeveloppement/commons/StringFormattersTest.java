@@ -66,17 +66,18 @@
  */
 package org.ajdeveloppement.commons;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.Locale;
 
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
 
 /**
  * @author Aurelien JEOFFRAY
  *
  */
-public class StringFormattersTest extends TestCase {
+public class StringFormattersTest {
 	/**
 	 * Test method for {@link org.ajdeveloppement.commons.StringFormatters#formatFileSize(double)}.
 	 */

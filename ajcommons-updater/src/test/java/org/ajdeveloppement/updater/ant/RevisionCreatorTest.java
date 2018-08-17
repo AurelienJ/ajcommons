@@ -66,6 +66,8 @@
  */
 package org.ajdeveloppement.updater.ant;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -73,22 +75,13 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import org.ajdeveloppement.commons.AjResourcesReader;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author aurelien
  *
  */
 public class RevisionCreatorTest {
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@Before
-	public void setUp() throws Exception {
-	}
 
 	/**
 	 * Test method for {@link org.ajdeveloppement.updater.ant.RevisionsCreator#execute()}.
@@ -111,7 +104,7 @@ public class RevisionCreatorTest {
 		revisionsCreator.setSignKeysAliasPassword(resourcesReader.getResourceString("signkeyaliaspassword"));
 		revisionsCreator.execute();
 		
-		Assert.assertTrue(Files.exists(Paths.get(revisionPath)));
+		assertTrue(Files.exists(Paths.get(revisionPath)));
 	}
 
 }

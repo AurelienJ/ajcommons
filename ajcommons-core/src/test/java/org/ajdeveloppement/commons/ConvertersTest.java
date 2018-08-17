@@ -66,16 +66,16 @@
  */
 package org.ajdeveloppement.commons;
 
-import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Aurelien JEOFFRAY
  *
  */
-public class ConvertersTest extends TestCase {
+public class ConvertersTest {
 
 	/**
 	 * Test method for {@link org.ajdeveloppement.commons.Converters#centimeterToInch(double)}.
@@ -100,8 +100,8 @@ public class ConvertersTest extends TestCase {
 	 */
 	@Test
 	public void testCentimeterToDpi() {
-		assertEquals(340, Converters.centimeterToDpi(12), 0);
-		assertEquals(765, Converters.centimeterToDpi(27), 0);
+		assertEquals(340, Converters.centimeterToDpi(12), 1e-5);
+		assertEquals(765, Converters.centimeterToDpi(27), 1e-5);
 	}
 
 	/**
@@ -126,6 +126,6 @@ public class ConvertersTest extends TestCase {
 	 */
 	@Test
 	public void testHexStringToByteArray() {
-		Assert.assertArrayEquals(new byte[] { 10, 5, 32, 45, -16, -126, 123, 85}, Converters.hexStringToByteArray("0a05202df0827b55")); //$NON-NLS-1$
+		assertArrayEquals(new byte[] { 10, 5, 32, 45, -16, -126, 123, 85}, Converters.hexStringToByteArray("0a05202df0827b55")); //$NON-NLS-1$
 	}
 }

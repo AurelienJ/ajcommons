@@ -66,7 +66,7 @@
  */
 package org.ajdeveloppement.commons;
 
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -75,9 +75,7 @@ import java.io.InputStream;
 
 import org.ajdeveloppement.commons.io.FileMonitor;
 import org.ajdeveloppement.commons.io.FileUtils;
-import org.junit.Before;
-import org.junit.Test;
-
+import org.junit.jupiter.api.Test;
 /**
  * @author "Aurélien JEOFFRAY"
  *
@@ -86,13 +84,6 @@ import org.junit.Test;
 public class TestFileMonitor {
 	
 	private volatile boolean testFail = true;
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@Before
-	public void setUp() throws Exception {
-	}
 
 	/**
 	 * Test method for {@link org.ajdeveloppement.commons.io.FileMonitor#FileMonitor(java.nio.file.Path)}.

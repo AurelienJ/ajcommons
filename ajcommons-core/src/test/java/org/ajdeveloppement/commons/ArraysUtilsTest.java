@@ -1,22 +1,18 @@
 package org.ajdeveloppement.commons;
 
-import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test suite for ArraysUtils class
  * @author Aurelien JEOFFRAY
  *
  */
-public class ArraysUtilsTest extends TestCase {
-
-	@Override
-	@Before
-	public void setUp() throws Exception {
-	}
+public class ArraysUtilsTest {
 
 	/**
 	 * Test d'inversion d'élément
@@ -26,7 +22,7 @@ public class ArraysUtilsTest extends TestCase {
 		Integer[] elements = new Integer[] { 1, 2, 3, 4 };
 		
 		ArraysUtils.swap(elements, 1, 3);
-		Assert.assertArrayEquals(new Integer[] { 1, 4, 3, 2 }, elements);
+		assertArrayEquals(new Integer[] { 1, 4, 3, 2 }, elements);
 	}
 
 	/**
@@ -37,8 +33,8 @@ public class ArraysUtilsTest extends TestCase {
 	public void testContains() {
 		String[] elements = { "un", "deux", "trois" };
 		
-		Assert.assertTrue(ArraysUtils.contains(elements, "deux"));
-		Assert.assertFalse(ArraysUtils.contains(elements, "zero"));
+		assertTrue(ArraysUtils.contains(elements, "deux"));
+		assertFalse(ArraysUtils.contains(elements, "zero"));
 	}
 
 }

@@ -225,7 +225,7 @@ public class AjResourcesReader {
 					e.printStackTrace(); // se contente d'afficher une erreur dans la console
 				}
 			}
-			if(res != null) {
+			if(res != null && getJavaVersion() < 9) {
 				try {
 					res = new String(res.getBytes("ISO-8859-1"), "UTF-8"); //$NON-NLS-1$ //$NON-NLS-2$
 				} catch (UnsupportedEncodingException e) {
@@ -264,5 +264,17 @@ public class AjResourcesReader {
 			} catch (MissingResourceException mre) { }
 		}
 		return iVal;
+	}
+	
+	/**
+	 * Get the java runtime version
+	 * 
+	 * @return
+	 */
+	private static double getJavaVersion() {
+	    String version = System.getProperty("java.version");
+	    int pos = version.indexOf('.');
+	    pos = version.indexOf('.', pos+1);
+	    return Double.parseDouble (version.substring (0, pos));
 	}
 }
