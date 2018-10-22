@@ -154,7 +154,7 @@ public class QueryableProcessor extends AbstractProcessor {
 						Map<String, String> primaryKeyTypes = new HashMap<>();
 						
 						String contentClass = String.format("package %s;\n\n"
-								+ "import javax.annotation.Generated;\n"
+								+ "import javax.annotation.processing.Generated;\n"
 								+ "import java.sql.ResultSet;\n"
 								+ "import java.sql.SQLException;\n"
 								+ "import java.util.Map;\n"
