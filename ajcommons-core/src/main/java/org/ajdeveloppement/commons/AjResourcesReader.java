@@ -274,7 +274,10 @@ public class AjResourcesReader {
 	private static double getJavaVersion() {
 	    String version = System.getProperty("java.version");
 	    int pos = version.indexOf('.');
-	    pos = version.indexOf('.', pos+1);
-	    return Double.parseDouble (version.substring (0, pos));
+	    if(pos > -1) {
+	    	pos = version.indexOf('.', pos+1);
+	    	version = version.substring (0, pos);
+	    }
+	    return Double.parseDouble (version);
 	}
 }
