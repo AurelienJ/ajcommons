@@ -91,6 +91,13 @@
   <scm>
   	<url>https://github.com/AurelienJ/ajcommons</url>
   </scm>
+  <distributionManagement>
+   <repository>
+     <id>github</id>
+     <name>GitHub AurelienJ Apache Maven Packages</name>
+     <url>https://maven.pkg.github.com/AurelienJ/ajcommons</url>
+   </repository>
+  </distributionManagement>
   <organization>
   	<url>https://www.ajdeveloppement.org/</url>
   	<name>AjDeveloppement</name>
