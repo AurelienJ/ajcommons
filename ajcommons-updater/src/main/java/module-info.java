@@ -5,11 +5,13 @@ module org.ajdeveloppement.commons.updater {
 	requires java.xml.bind;
 	requires java.xml.crypto;
 	requires java.scripting;
-	//requires java.logging;
+	
 	requires ant;
 
 	exports org.ajdeveloppement.updater;
 	exports org.ajdeveloppement.updater.ant;
 	exports org.ajdeveloppement.updater.tools;
 	exports org.ajdeveloppement.updater.ui;
+	
+	opens org.ajdeveloppement.updater to java.xml.bind;
 }

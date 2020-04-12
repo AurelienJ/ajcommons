@@ -73,6 +73,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ResourceBundle;
 
 import org.ajdeveloppement.commons.AjResourcesReader;
 import org.junit.jupiter.api.Test;
@@ -91,17 +92,17 @@ public class RevisionCreatorTest {
 	public void testExecute() throws IOException, URISyntaxException {
 		String tempPath = Files.createTempDirectory("ajcommonsUnitTest").toString();
 		String revisionPath = tempPath + File.separator + "revision.xml.gz";
+
+		var resourcesReader = ResourceBundle.getBundle("org.ajdeveloppement.updater.ant.security");
 		
-		AjResourcesReader resourcesReader = new AjResourcesReader("org.ajdeveloppement.updater.ant.security");
-		
-		String keyStorePath = new File(this.getClass().getResource(resourcesReader.getResourceString("keystorepath")).toURI()).getPath();
+		String keyStorePath = new File(this.getClass().getResource(resourcesReader.getString("keystorepath")).toURI()).getPath();
 			
 		RevisionsCreator revisionsCreator = new RevisionsCreator();
 		revisionsCreator.setRevisionpath(revisionPath);
 		revisionsCreator.setKeyStorePath(keyStorePath);
-		revisionsCreator.setKeyStorePassword(resourcesReader.getResourceString("keystorepassword"));
-		revisionsCreator.setSignKeysAlias(resourcesReader.getResourceString("signkeyalias"));
-		revisionsCreator.setSignKeysAliasPassword(resourcesReader.getResourceString("signkeyaliaspassword"));
+		revisionsCreator.setKeyStorePassword(resourcesReader.getString("keystorepassword"));
+		revisionsCreator.setSignKeysAlias(resourcesReader.getString("signkeyalias"));
+		revisionsCreator.setSignKeysAliasPassword(resourcesReader.getString("signkeyaliaspassword"));
 		revisionsCreator.execute();
 		
 		assertTrue(Files.exists(Paths.get(revisionPath)));
