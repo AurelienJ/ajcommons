@@ -9,7 +9,6 @@
 		<relativePath>../</relativePath>
 	</parent>
 
-	<groupId>ajcommons-swingx-ext</groupId>
 	<artifactId>ajcommons-swingx-ext</artifactId>
 
 	<build>
