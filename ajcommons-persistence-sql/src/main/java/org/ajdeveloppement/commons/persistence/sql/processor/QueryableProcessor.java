@@ -110,7 +110,7 @@ import org.ajdeveloppement.commons.persistence.sql.annotations.SqlUnmappedFields
  *
  */
 @SupportedAnnotationTypes(value={"org.ajdeveloppement.commons.persistence.sql.annotations.SqlTable"}) //
-@SupportedSourceVersion(SourceVersion.RELEASE_8)
+@SupportedSourceVersion(SourceVersion.RELEASE_11)
 public class QueryableProcessor extends AbstractProcessor {
 	
 	private static String log = ""; //$NON-NLS-1$
