@@ -78,8 +78,6 @@ import java.security.cert.CertificateException;
 
 import org.ajdeveloppement.commons.UncheckedException;
 
-import com.apple.eio.FileManager;
-
 /**
  * Initialise et retourne les chemins des ressources applicative pour le programme en
  * fonction du système Hôte.
@@ -115,26 +113,6 @@ public class AppRessources {
             	allusersDataPath = System.getenv("ALLUSERSPROFILE") + File.separator  //$NON-NLS-1$
             			+ "Application Data" + File.separator + progname; //$NON-NLS-1$
         
-        // Chemins de ressources standard Mac OS X
-        } else if(System.getProperty("os.name").toLowerCase().startsWith("mac os x")) {  //$NON-NLS-1$//$NON-NLS-2$
-        	try {
-        		userPath = FileManager.findFolder(FileManager.kUserDomain, FileManager.OSTypeToInt("asup")) + File.separator + progname; //$NON-NLS-1$
-			} catch (FileNotFoundException e) {
-				userPath = System.getProperty("user.home") + File.separator //$NON-NLS-1$ 
-	        			+ "Library/Application Support/" + progname; //$NON-NLS-1$
-			}
-        	
-        	try {
-        		allusersDataPath = FileManager.findFolder(FileManager.kLocalDomain, FileManager.OSTypeToInt("asup")) + File.separator + progname; //$NON-NLS-1$
-			} catch (FileNotFoundException e) {
-				allusersDataPath = "/Library/Application Support/" + progname; //$NON-NLS-1$
-			}
-        	
-        	File allUsersDataPathFile = new File(allusersDataPath);
-        	allUsersDataPathFile.mkdirs();
-        	
-        	if(!allUsersDataPathFile.exists() || !allUsersDataPathFile.canExecute())
-        		allusersDataPath = userPath;
         // Chemins des ressources standard par défaut
         } else {
             userPath = System.getProperty("user.home") + File.separator //$NON-NLS-1$ 

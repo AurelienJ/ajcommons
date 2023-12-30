@@ -1,6 +1,5 @@
 module org.ajdeveloppement.commons.swingx {
 	requires org.ajdeveloppement.commons.core;
-	requires org.ajdeveloppement.commons.swing;
 	requires java.desktop;
 	requires java.xml.bind;
 	requires java.logging;

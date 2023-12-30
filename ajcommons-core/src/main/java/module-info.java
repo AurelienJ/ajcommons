@@ -3,7 +3,6 @@ module org.ajdeveloppement.commons.core {
 	requires java.sql;
 	requires java.xml.bind;
 	requires java.desktop;
-	requires orange.extensions;
     
 	exports org.ajdeveloppement.apps;
 	exports org.ajdeveloppement.apps.annotations;
@@ -15,5 +14,4 @@ module org.ajdeveloppement.commons.core {
 	exports org.ajdeveloppement.commons.net.http.websocket;
 	exports org.ajdeveloppement.commons.security;
 	exports org.ajdeveloppement.commons.sql;
-	exports org.ajdeveloppement.macosx;
 }

@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.ajdeveloppement</groupId>
 		<artifactId>ajcommons-parent</artifactId>
-		<version>2.0.15</version>
+		<version>${global.version}</version>
 		<relativePath>../</relativePath>
 	</parent>
 
@@ -39,7 +39,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.ajdeveloppement</groupId>
-			<artifactId>ajcommons-swing-ext</artifactId>
+			<artifactId>ajcommons-core</artifactId>
 			<version>${global.version}</version>
 		</dependency>
 	</dependencies>
