@@ -7,7 +7,7 @@
 		<groupId>org.ajdeveloppement</groupId>
 		<artifactId>ajcommons-parent</artifactId>
 		<relativePath>../</relativePath>
-		<version>${global.version}</version>
+		<version>${revision}</version>
 	</parent>
 
 	<artifactId>ajcommons-persistence</artifactId>

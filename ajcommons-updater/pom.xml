@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.ajdeveloppement</groupId>
 		<artifactId>ajcommons-parent</artifactId>
-		<version>${global.version}</version>
+		<version>${revision}</version>
 		<relativePath>../</relativePath>
 	</parent>
 
@@ -69,18 +69,12 @@
 		<dependency>
 			<groupId>org.ajdeveloppement</groupId>
 			<artifactId>ajcommons-core</artifactId>
-			<version>${global.version}</version>
+			<version>${revision}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.ajdeveloppement</groupId>
 			<artifactId>ajcommons-swing-ext</artifactId>
-			<version>${global.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.yuvimasory</groupId>
-			<artifactId>orange-extensions</artifactId>
-			<version>1.3.0</version>
-			<optional>true</optional>
+			<version>${revision}</version>
 		</dependency>
 	</dependencies>
 </project>

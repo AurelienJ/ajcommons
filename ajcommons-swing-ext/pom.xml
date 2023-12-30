@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.ajdeveloppement</groupId>
 		<artifactId>ajcommons-parent</artifactId>
-		<version>${global.version}</version>
+		<version>${revision}</version>
 		<relativePath>../</relativePath>
 	</parent>
 
@@ -42,7 +42,7 @@
 		<dependency>
 			<groupId>org.ajdeveloppement</groupId>
 			<artifactId>ajcommons-core</artifactId>
-			<version>${global.version}</version>
+			<version>${revision}</version>
 		</dependency>
 	</dependencies>
 </project>
