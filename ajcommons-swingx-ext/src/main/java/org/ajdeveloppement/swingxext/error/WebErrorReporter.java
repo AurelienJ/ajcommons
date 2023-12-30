@@ -64,36 +64,20 @@
  */
 package org.ajdeveloppement.swingxext.error;
 
-import java.awt.Dialog;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.awt.Desktop;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.InvocationTargetException;
-import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.URLConnection;
-import java.util.Collections;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
+import java.net.URLEncoder;
 
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
-import javax.xml.bind.JAXBException;
 
 import org.ajdeveloppement.apps.ApplicationContext;
 import org.ajdeveloppement.commons.AjResourcesReader;
-import org.ajdeveloppement.commons.io.XMLSerializer;
-import org.ajdeveloppement.commons.net.http.HttpHelper;
-import org.ajdeveloppement.commons.net.http.PostParameter;
-import org.ajdeveloppement.swingxext.error.ui.ErrorReporterDialog;
-import org.ajdeveloppement.swingxext.error.ui.ErrorReporterDialog.Action;
 import org.jdesktop.swingx.error.ErrorInfo;
 import org.jdesktop.swingx.error.ErrorReporter;
 
@@ -119,29 +103,16 @@ public class WebErrorReporter implements ErrorReporter {
 	private URL reportUrl;
 	private ApplicationContext context;
 	
-	private JDialog dialog = null;
-	
-	private AjResourcesReader localisation = new AjResourcesReader(WebErrorReporter.class.getPackage().getName() + ".libelle"); //$NON-NLS-1$
-	
 	/**
 	 * Intialise le service de rapport d'erreur
 	 * 
 	 * @param reportUrl l'url ou poster le rapport
+	 * @param context Information on applicatgion (app name, version, os, jvm, ... to complete error report)
 	 * @param context le contexte d'execution de l'application ayant généré l'erreur
 	 */
 	public WebErrorReporter(URL reportUrl, ApplicationContext context) {
 		this.reportUrl = reportUrl; 
 		this.context = context;
-	}
-	
-	/**
-	 * Définit la boite de dialogue d'erreur parent afin
-	 * d'avoir un modal correct.
-	 * 
-	 * @param dialog la boite de dialogue d'erreur parent
-	 */
-	public void setParentErrorDialog(JDialog dialog) {
-		this.dialog = dialog;
 	}
 	
 	/**
@@ -154,84 +125,24 @@ public class WebErrorReporter implements ErrorReporter {
 		Runnable r = new Runnable() {
 			@Override
 			public void run() {
-				ErrorReportMessage message = new ErrorReportMessage();
-				
-				//ErrorInfo errInf = errorInfo;
-				
 				StringWriter strStackTraceWriter = new StringWriter();
 				PrintWriter stackTraceWriter = new PrintWriter(strStackTraceWriter);
 				errorInfo.getErrorException().printStackTrace(stackTraceWriter);
 				
-				message.setErrorMessage(strStackTraceWriter.toString());
-				message.setContext(context);
-				
-				Dialog d = dialog;
-
-				ErrorReporterDialog dialog = new ErrorReporterDialog(d);
-				if(dialog.showErrorReporterDialog(message) == Action.SEND) {
-					File tempErrMessage = null;
-					try {
-						tempErrMessage = File.createTempFile("errmsg", ".zip"); //$NON-NLS-1$ //$NON-NLS-2$
-			
-						ZipOutputStream zipOut = new ZipOutputStream(new FileOutputStream(tempErrMessage));
-						try {
-							ZipEntry entry = new ZipEntry("errorMessage.xml"); //$NON-NLS-1$
-				
-							zipOut.putNextEntry(entry);
-							zipOut.write(XMLSerializer.createMarshallStructure(message).getBytes("UTF-8")); //$NON-NLS-1$
-							zipOut.closeEntry();
-							zipOut.flush();
-						} finally {
-							zipOut.close();
-						}
-						
-						PostParameter errorMessagePost = new PostParameter(
-								"errorReport", //$NON-NLS-1$
-								"report-" +	System.currentTimeMillis() + ".zip", //$NON-NLS-1$ //$NON-NLS-2$
-								new FileInputStream(tempErrMessage),
-								"application/zip"); //$NON-NLS-1$
-						
-						URLConnection urlConnection = reportUrl.openConnection();
-			
-						String response = ""; //$NON-NLS-1$
-						BufferedReader reader = new BufferedReader(new InputStreamReader(HttpHelper.sendPostRequest(
-								urlConnection, Collections.singletonList(errorMessagePost))));
-						try {
-							
-							String line;
-							while((line = reader.readLine()) != null) {
-								response += line;
-							}
-						} finally {
-							reader.close();
-						}
-						
-						if(response.startsWith("OK ")) { //$NON-NLS-1$
-							JOptionPane.showMessageDialog(null, 
-									localisation.getResourceString("weberrorreporter.confirmation"), "", JOptionPane.INFORMATION_MESSAGE); //$NON-NLS-1$ //$NON-NLS-2$
-						} else {
-							JOptionPane.showMessageDialog(null, localisation.getResourceString("weberrorreporter.error"), "", JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$ //$NON-NLS-2$
-						}
-					} catch (FileNotFoundException e) {
-						e.printStackTrace();
-						
-						JOptionPane.showMessageDialog(null, localisation.getResourceString("weberrorreporter.error"), "", JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$ //$NON-NLS-2$
-					} catch (MalformedURLException e) {
-						e.printStackTrace();
-						
-						JOptionPane.showMessageDialog(null, localisation.getResourceString("weberrorreporter.error"), "", JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$ //$NON-NLS-2$
-					} catch (IOException e) {
-						e.printStackTrace();
-						
-						JOptionPane.showMessageDialog(null, localisation.getResourceString("weberrorreporter.error"), "", JOptionPane.ERROR_MESSAGE);  //$NON-NLS-1$//$NON-NLS-2$
-					} catch (JAXBException e) {
-						e.printStackTrace();
-						
-						JOptionPane.showMessageDialog(null, localisation.getResourceString("weberrorreporter.error"), "", JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$ //$NON-NLS-2$
-					} finally {
-						if(tempErrMessage != null)
-							tempErrMessage.delete();
+				try {
+					String detail = "Crash on " + context.getApplicationName() + " v" + context.getApplicationVersion();
+					detail += "\nEnvironment: " + context.getOSName() + " " + context.getArchitecture() + " (JVM " + context.getJVMVendor() + " " + context.getJVMVersion() + ")\n";
+					detail += "\nStacktrace: \n" + strStackTraceWriter.toString();
+					
+					String uri = reportUrl + "?title=" + URLEncoder.encode("JVM Exception : " + errorInfo.getErrorException().getMessage(), "UTF-8") + "&body=" + URLEncoder.encode(detail, "UTF-8");
+					if (Desktop.isDesktopSupported()) {
+						Desktop.getDesktop().browse(new URI(uri));
 					}
+				} catch (IOException e1) {
+				
+					e1.printStackTrace();
+				} catch (URISyntaxException e1) {
+					e1.printStackTrace();
 				}
 			}
 		};

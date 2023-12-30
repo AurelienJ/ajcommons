@@ -133,9 +133,6 @@ public class DisplayableErrorHelper {
 				
 				if(errorReporter != null) {
 					errorPane.setErrorReporter(errorReporter);
-					
-					if(errorReporter instanceof WebErrorReporter)
-						((WebErrorReporter) errorReporter).setParentErrorDialog(errorDialog);
 				}
 				
 				errorDialog.setVisible(true);
